@@ -1,0 +1,1 @@
+database goupPERMISSIONS is TEXT for THIS IS JSON STRING
