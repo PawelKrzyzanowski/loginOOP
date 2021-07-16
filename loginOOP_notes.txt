@@ -1,1 +1,30 @@
-database goupPERMISSIONS is TEXT for THIS IS JSON STRING
+database 
+    goupPERMISSIONS is TEXT for THIS IS JSON STRING;
+filestructure
+freefiles
+    profile.php - to view profile
+    update.php - to update profiles
+folders
+    CLASSES - global classes, for: input classes, validation classes - Can use this classes elswewhere
+        Config.php - database connection configuration
+        Cookie.php
+        DB.php - to work witch PHP Objects working with DB with mysql
+        Hash.php - to generate various hahes like SALTS, password hash
+        Input.php - to handle inputs like: Input::get('username'); // prints eg Pawel
+        Redirect.php - to handle rediect pages like: Redirect::to(404); insted of: header('Location');
+        Session.php - handle sessions: set session, check session, 
+        Token.php - for cross-forms sequrity, tokens protect access to session
+        User.php - to serve userdata
+        Validation.php - validate chceck is passed, check forms etc,
+
+    CORE - local classes
+        init.php - to include everypage to not require them everytime, start session, implement local classes
+
+    functions - for sanitization functions
+    includes --> errors, users profile
+
+
+
+
+
+
