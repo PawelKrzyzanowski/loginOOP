@@ -4,13 +4,13 @@
 
     $GLOBALS['config'] = array(
         'mysql' => array(
-            'hosts' => '127.0.0.1', /*localhost*/
+            'host' => '127.0.0.1', /*localhost*/
             'username' => 'root',
             'password' => '',
             'db' => 'loginOOP'
         ), /* database config   => is the separator for associative arrays */
-        'remeber' => array(
-            'cookie_name' => 'hash',
+        'remember' => array(
+            'cookie_name' => 'hash',  /* cookies if user choose to be remembered */
             'cookie_expiry' => 604800 /* cookies expiry time - month in seconds */
         ),
         'session' => array(
