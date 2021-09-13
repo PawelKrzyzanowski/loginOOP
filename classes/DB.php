@@ -17,6 +17,8 @@
 		PDOException is SPL class.
 		"self" is keyword of PHP like "this", use "self" when there is a need to access something which belongs to a class 
 	and use $this when there is a need to access a property belonging to the object of the class.	
+		- "keys" are name of Array cell like array(0=>3, 'color' = 'red') - 0 and 'color' are keys
+		array_keys - returns the names
 	*/
 	class DB
 	{
@@ -120,6 +122,28 @@
 		public function get_results()
 		{
 			return $this->_results;
+		}
+		
+		public function insert( $table, $fields = array() )
+		{
+			if(count($fields))
+			{
+				$keys = array_keys($fields);
+				$qmarks = '';
+				$i = 0;
+				foreach($fields as $field)
+				{
+					$qmarks .= '?';
+					$i++;
+					if($i<count($fields))
+						$qmarks .= ',';
+				}
+				$sql = "INSERT INTO {$table} ('".implode("' , '" ,$keys)."') VALUES ({$qmarks})";
+				echo '<p>'.$sql.'</p>';
+			}
+			
+			
+			return false;
 		}
 	}
 

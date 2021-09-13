@@ -5,7 +5,7 @@
     echo '<br>dbName.........'.Config::get('mysql/db'); 
 	echo '<br>cookieExpiry...'.Config::get('remember/cookie_expiry');
     echo '<br>sessionName....'.Config::get('session/session_name');
-	/* Example of DB class usage
+	/* Example of DB class usage - quering 
 	"$db = new DB();" - before getInstance declaration: when __construct() was public */
 	//$users = DB::getInstance()->query("SELECT userName FROM users WHERE userName = ?", array('Alex') );
 	$users = DB::getInstance()->query("SELECT userName FROM users"); //can be 1 argument
@@ -38,4 +38,8 @@
 			echo'<p>The query returns 0 results.';
 		}
 	}
+	//Example of DB usage - Inserting
+	$user = DB::getInstance()->insert('users', array('userName'=>'Dale', 'userPass'=>'somepass', 'salt'=>'somesalt') );
+	
+	
 ?>
