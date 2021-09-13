@@ -55,9 +55,12 @@
 			$this->_error = false;
 			if( $this->_query = $this->_pdo->prepare($sql) )
 			{
+				echo'<p>Prepared query: <br>';		//test
+				print_r($this->_query); echo'<br>';	//test
+				$i = 1;
 				foreach( $params as $param )
 				{
-					$i = 1;
+					echo'binded Value: '.$param.' on $i = '.$i.'<br>';
 					$this->_query->bindValue($i, $param);
 					$i++;
 				}
@@ -133,16 +136,39 @@
 				$i = 0;
 				foreach($fields as $field)
 				{
-					$qmarks .= '?';
+					$qmarks .= "?";
 					$i++;
 					if($i<count($fields))
-						$qmarks .= ',';
+						$qmarks .= ', ';
 				}
-				$sql = "INSERT INTO {$table} ('".implode("' , '" ,$keys)."') VALUES ({$qmarks})";
-				echo '<p>'.$sql.'</p>';
+				$sql = "INSERT INTO {$table} (`".implode('`, `', $keys) ."`) VALUES ({$qmarks})";
+				echo '<p>'.$sql.'</p>'; //TEST
+				if(!$this->query($sql, $fields)->error())
+				{
+					return true;
+				}
 			}
-			
-			
+			return false;
+		}
+
+		public function update($table, $id, $fields)
+		{
+			$set = '';
+			$i = 1;
+			foreach($fields as $name => $value)
+			{
+				$set .= "{$name} = ?";
+				if($i < count($fields)) 
+					$set .= ", ";
+				$i++;
+			}
+			$sql = "UPDATE {$table} SET {$set} WHERE userID={$id}";
+
+
+			if(!$this->query($sql, $fields)->error())
+			{
+				return true;
+			}
 			return false;
 		}
 	}

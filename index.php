@@ -8,7 +8,7 @@
 	/* Example of DB class usage - quering 
 	"$db = new DB();" - before getInstance declaration: when __construct() was public */
 	//$users = DB::getInstance()->query("SELECT userName FROM users WHERE userName = ?", array('Alex') );
-	$users = DB::getInstance()->query("SELECT userName FROM users"); //can be 1 argument
+	$users = DB::getInstance()->query("SELECT userLogin FROM users"); //can be 1 argument
 	//$users = DB::getInstance()->action("SELECT *", 'users', array('userName', '=', 'Alex') );
 	//$users = DB::getInstance()->getAll('users', array('userName','=','Alex'));
 	if($users->error())
@@ -25,7 +25,7 @@
 			{
 				echo'Results:<br>';
 				foreach( $users->get_results() as $user )
-					echo $user->userName.'<br>';
+					echo $user->userLogin.'<br>';
 			}
 			else
 			{
@@ -39,7 +39,10 @@
 		}
 	}
 	//Example of DB usage - Inserting
-	$user = DB::getInstance()->insert('users', array('userName'=>'Dale', 'userPass'=>'somepass', 'salt'=>'somesalt') );
-	
-	
+	//$userInsert = DB::getInstance()->insert('users', array('userLogin'=>'Felix', 'userPass'=>'somepass', 'userName'=>'Dale', 'userGroup'=>0, 'userSalt'=>'somesalt', 'userJoinDate'=>'2021-09-13') );
+	//$user = DB::getInstance()->insert('users', array('userLogin'=>'Dale'));
+	//$user = DB::getInstance()->insert('users', array('userLogin'=>'Eric', 'userPass'=>'ericpass'));
+	//if($userInsert)	echo'<p>Insert successful</p>';	else echo'<p>Insert unsuccessful</p>';
+	//$userUpdate = DB::getInstance()->update('users', 3, array('userName'=>'Casy', 'userPass'=>'newpass', 'userGroup'=>0));
+	//if($userUpdate)	echo'<p>Update successful</p>';	else echo'<p>Update unsuccessful</p>';
 ?>

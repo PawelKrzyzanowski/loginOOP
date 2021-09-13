@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 13 Wrz 2021, 08:49
--- Wersja serwera: 10.4.8-MariaDB
--- Wersja PHP: 7.3.10
+-- Host: localhost
+-- Generation Time: Sep 13, 2021 at 12:05 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `loginoop`
+-- Database: `loginOOP`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `groups`
+-- Table structure for table `groups`
 --
 
 CREATE TABLE `groups` (
@@ -35,7 +34,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `groups`
+-- Dumping data for table `groups`
 --
 
 INSERT INTO `groups` (`groupID`, `groupName`, `groupPerm`) VALUES
@@ -45,7 +44,7 @@ INSERT INTO `groups` (`groupID`, `groupName`, `groupPerm`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `sessions`
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -57,45 +56,48 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `userLogin` varchar(20) COLLATE utf8_polish_ci NOT NULL,
-  `userPass` varchar(64) COLLATE utf8_polish_ci NOT NULL,
-  `userName` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-  `userGroup` int(11) NOT NULL,
-  `userSalt` varchar(32) COLLATE utf8_polish_ci NOT NULL,
-  `userJoinDate` date NOT NULL
+  `userPass` varchar(64) COLLATE utf8_polish_ci DEFAULT NULL,
+  `userName` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
+  `userGroup` int(11) DEFAULT NULL,
+  `userSalt` varchar(32) COLLATE utf8_polish_ci DEFAULT NULL,
+  `userJoinDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
--- Zrzut danych tabeli `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`userID`, `userLogin`, `userPass`, `userName`, `userGroup`, `userSalt`, `userJoinDate`) VALUES
 (1, 'Alex', 'password', 'Alex', 0, 'salt', '2021-09-10'),
-(2, 'Billy', 'password', 'Billy', 0, 'salt', '2021-09-10');
+(2, 'Billy', 'password', 'Billy', 0, 'salt', '2021-09-10'),
+(3, 'Dale', 'newpass', 'Casy', 0, NULL, NULL),
+(4, 'Eric', 'ericpass', NULL, NULL, NULL, NULL),
+(5, 'Felix', 'somepass', 'Dale', 0, 'somesalt', '2021-09-13');
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `groups`
+-- Indexes for table `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`groupID`);
 
 --
--- Indeksy dla tabeli `sessions`
+-- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`sessionID`);
 
 --
--- Indeksy dla tabeli `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userID`);
@@ -105,22 +107,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `groups`
+-- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `groupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT dla tabeli `sessions`
+-- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
   MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
