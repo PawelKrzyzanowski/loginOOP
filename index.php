@@ -10,8 +10,8 @@
 	//$users = DB::getInstance()->query("SELECT userName FROM users WHERE userName = ?", array('Alex') );
 	$users = DB::getInstance()->query("SELECT userLogin FROM users"); //can be 1 argument
 	//$users = DB::getInstance()->action("SELECT *", 'users', array('userName', '=', 'Alex') );
-	//$users = DB::getInstance()->getAll('users', array('userName','=','Alex'));
-	if($users->error())
+	//$users = DB::getInstance()->selectAll('users', array('userName','=','Alex'));
+	if($users->get_error())
 	{
 		echo'<p>Users query error occured.</p>';
 		echo'<p>'.$users->error().'</p>';
@@ -21,16 +21,16 @@
 		echo'<p>OK</p>';
 		if($users->get_count()>0)
 		{
-			if( $results = $users->get_results() )
+			if( $results = $users->get_resultsI() )
 			{
 				echo'Results:<br>';
-				foreach( $users->get_results() as $user )
+				foreach( $users->get_resultsI() as $user )
 					echo $user->userLogin.'<br>';
 			}
 			else
 			{
 				echo'<p>get_results() failed.</p>';
-				echo'<p>'.$users->error().'</p>';
+				echo'<p>'.$users->get_error().'</p>';
 			}
 		}
 		else

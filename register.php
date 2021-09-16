@@ -3,64 +3,79 @@
 
     if( Input::exists() )
     {
-        echo 'Submitted: ';
-        echo Input::get('username');
+        //echo 'Submitted: ';
+        //echo Input::get('userLogin');
 
-        $validationInstance = new Validation();
-        
-        $validationInstance->checkInput( $_POST, array(
-            'username' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 20,
-                'unique' => 'users'
-            ),
-            'password' => array(
-                'required' => true,
-                'min' => 6
-            ),
-            'password2' => array(
-                'required' => true,
-                'matches' => 'password'
-            ),
-            'fullname' => array(
-                'required' => true,
-                'min' => 2,
-                'max' => 50
-            )
-        ) );
+        $VOI = new Validation(); //VOI contains DBOI and PDOI
 
-        if($validationInstance->return_passed())
+        $VOI->checkInput( $_POST, 
+            array(
+                'userLogin' => array(
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 20,
+                    'unique' => 'users' // unique means doesn't repeat in database table: [RULE_NAME] => [DATABASE_TABLE_NAME] 
+                    ),
+                'userPass' => array(
+                    'required' => true,
+                    'min' => 6
+                    ),
+                'userPass2' => array(
+                    'required' => true,
+                    'matches' => 'userPass' //matches means the same as the other input: [RULE_NAME] => [THE_OTHER_INPUT_NAME]
+                    ),
+                'userName' => array(
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 50
+                    )
+                ),
+            array('userLogin' => 'Login', 'userPass' => 'Hasło', 'userPass2' => 'Powtórzone hasło', 'userName' => 'Imię i nazwisko') 
+        );
+
+        if( $VOI->get_hasPassed() )
         {
             //register user
-            echo'<p>user registered</p>';
+            //echo'<p>Validation passed.</p>';
+            echo'<p>Walidacja ukończona pomyślnie.</p>';
         }
         else
         {
+             
             //output errors
-            echo'<p>user registration fails</p>';
-            print_r( $validationInstance->return_errors() );
+            //echo'<p>Validation has not passed. Errors:<br>';
+            //echo'<p>Walidacja przerwana.<br>';
+            $msg = "<p>Walidacja przerwana.<br>";
+            foreach( $VOI->get_errorDescrs() as $error )
+            {
+                //echo $error."<br>";
+                $msg .= $error."<br>";
+            }
         }
     }
 ?>
 <form action="" method="post">
     <div class="fld">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php echo Input::get('username') ?>" autocomplete="off">
+        <label for="userLogin">Login</label>
+        <input type="text" name="userLogin" id="userLogin" value="<?php echo escape(Input::get('userLogin')); ?>" autocomplete="off">
     </div>
     <div class="fld">
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password" value="" autocomplete="off">
+        <label for="userPass">Hasło</label>
+        <input type="text" name="userPass" id="userPass" value="" autocomplete="off">
     </div>
     <div class="fld">
-        <label for="password2">Password repeat</label>
-        <input type="text" name="password2" id="password2" value="" autocomplete="off">
+        <label for="userPass2">Powtórzone hasło</label>
+        <input type="text" name="userPass2" id="userPass2" value="" autocomplete="off">
     </div>
     <div class="fld">
-        <label for="fullname">Full name</label>
-        <input type="text" name="fullname" id="fullname" value="" autocomplete="off">
+        <label for="userName">Imię i nazwisko</label>
+        <input type="text" name="userName" id="userName" value="<?php echo escape(Input::get('userName')); ?>" autocomplete="off">
     </div>
     <input type="submit" value="Sign up">
 </form>
+<?php
+    if( isset($msg) )
+        echo $msg;
+?>
 
 

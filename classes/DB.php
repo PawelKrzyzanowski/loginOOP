@@ -23,17 +23,17 @@
 	class DB
 	{
 		static private $_instance = NULL;
-		private $_pdo, $_query, $_error = false, $_results, $_count = 0;
+		private $_pdoI, $_pdoStmI, $_error = false, $_resultsI, $_count = 0;
 		
 		private function __construct()
 		{
 			try
 			{
-				$this->_pdo = new PDO(
+				$this->_pdoI = new PDO(
 				'mysql:host='.Config::get('mysql/host').'; dbname='.Config::get('mysql/db'), 
 				Config::get('mysql/username'), 
 				Config::get('mysql/password') );
-				echo"<p>Connected.</p>"; // TEST
+				//echo"<p>Connected.</p>"; // TEST
 			}
 			catch(PDOException $e)
 			{
@@ -53,23 +53,23 @@
 		public function query( $sql, $params=array() )
 		{
 			$this->_error = false;
-			if( $this->_query = $this->_pdo->prepare($sql) )
+			if( $this->_pdoStmI = $this->_pdoI->prepare($sql) )
 			{
-				echo'<p>Prepared query: <br>';		//test
-				print_r($this->_query); echo'<br>';	//test
+				//echo'<p>Prepared query: <br>';		//test
+				//print_r($this->_pdoStmI); echo'<br>';	//test
 				$i = 1;
 				foreach( $params as $param )
 				{
-					echo'binded Value: '.$param.' on $i = '.$i.'<br>';
-					$this->_query->bindValue($i, $param);
+					//echo'binded Value: '.$param.' on $i = '.$i.'<br>';
+					$this->_pdoStmI->bindValue($i, $param);
 					$i++;
 				}
-				if($this->_query->execute())
+				if($this->_pdoStmI->execute())
 				{
-					$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-					$this->_count = $this->_query->rowCount();
+					$this->_resultsI = $this->_pdoStmI->fetchAll(PDO::FETCH_OBJ);
+					$this->_count = $this->_pdoStmI->rowCount();
 					//echo'<p>_count = '.$this->_count.'</p>'; //diatest
-					//echo'<p>_result:</p>'; print_r($this->_results); //diatest
+					//echo'<p>_result:</p>'; print_r($this->_resultsI); //diatest
 				}
 				else
 				{
@@ -79,7 +79,7 @@
 			return $this;
 		}
 		
-		public function error()
+		public function get_error()
 		{
 			return $this->_error;
 		}
@@ -102,29 +102,29 @@
 				if( in_array($operator, $operators) )
 				{
 					$sql = " {$action} FROM {$table} WHERE {$field} {$operator} ? ";
-					echo $sql; // diatest
+					//echo $sql; // test
 					$this->query($sql, array($value));
 				}
 				else
 				{
-					echo'<p>There is not allowed operator</p>'; // diatest
+					//echo'<p>There is not allowed operator</p>'; // test
 				}
 			}
 			else
 			{
-				echo'<p>where is not 3rd parameter.</p>'; //diatest
+				//echo'<p>where is not 3rd parameter.</p>'; //test
 			}
 			return $this;
 		}
 		
-		public function getAll( $table, $where = array() )
+		public function selectAll( $table, $where = array() )
 		{
 			return $this->action("SELECT *", $table, $where);
 		}
 		
-		public function get_results()
+		public function get_resultsI()
 		{
-			return $this->_results;
+			return $this->_resultsI;
 		}
 		
 		public function insert( $table, $fields = array() )
@@ -142,7 +142,7 @@
 						$qmarks .= ', ';
 				}
 				$sql = "INSERT INTO {$table} (`".implode('`, `', $keys) ."`) VALUES ({$qmarks})";
-				echo '<p>'.$sql.'</p>'; //TEST
+				//echo '<p>'.$sql.'</p>'; //TEST
 				if(!$this->query($sql, $fields)->error())
 				{
 					return true;
