@@ -43,8 +43,24 @@
                 //echo'<p>Validation passed.</p>';
                 //echo'<p>Walidacja ukończona pomyślnie.</p>';
                 Session::flash('success','Walidacja ukończona pomyślnie.');
-                header("Location: index.php");
-                exit();
+                $userI = new User();
+                try
+                {
+                    $userI->create( 
+                        array(
+                            'userName' => '',
+                            'userPass' => '',
+                            'userSalt' => '',
+                            'userName' => '',
+                            'userJoinDate' => '',
+                            'userGroup' => ''
+                        ) 
+                    );
+                }
+                catch(Exception $e) // User::create() may throw exception
+                {
+                    die($e->getMessage());
+                }
             }
             else
             {
