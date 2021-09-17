@@ -41,7 +41,10 @@
             if( $VOI->get_hasPassed() )
             {
                 //echo'<p>Validation passed.</p>';
-                echo'<p>Walidacja ukończona pomyślnie.</p>';
+                //echo'<p>Walidacja ukończona pomyślnie.</p>';
+                Session::flash('success','Walidacja ukończona pomyślnie.');
+                header("Location: index.php");
+                exit();
             }
             else
             {

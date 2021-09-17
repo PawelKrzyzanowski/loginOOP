@@ -45,4 +45,10 @@
 	//if($userInsert)	echo'<p>Insert successful</p>';	else echo'<p>Insert unsuccessful</p>';
 	//$userUpdate = DB::getInstance()->update('users', 3, array('userName'=>'Casy', 'userPass'=>'newpass', 'userGroup'=>0));
 	//if($userUpdate)	echo'<p>Update successful</p>';	else echo'<p>Update unsuccessful</p>';
+
+	//Example of Validation and Session (flash) usage
+	if(Session::has('success'))
+	{
+		echo Session::flash('success');
+	}
 ?>

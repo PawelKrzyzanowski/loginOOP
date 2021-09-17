@@ -32,7 +32,7 @@
         {
             $tokenName = Config::get('session/token_name');
             //Token is deleted from the session if it's same as the form-token
-            if( Session::exists($tokenName) && $formToken === Session::get($tokenName) )
+            if( Session::has($tokenName) && $formToken === Session::get($tokenName) )
             {
                 Session::delete($tokenName);
                 return true;
