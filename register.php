@@ -43,17 +43,20 @@
                 //echo'<p>Validation passed.</p>';
                 //echo'<p>Walidacja ukończona pomyślnie.</p>';
                 Session::flash('success','Walidacja ukończona pomyślnie.');
+                Session::flash('success');
                 $userI = new User();
+                $salt = Hash::generateSalt(32); // SQLSTATE[22007] Invalid datetime format incorect string value error
+                $today = date('Y-m-d H:i:s');
                 try
                 {
                     $userI->create( 
                         array(
-                            'userName' => '',
-                            'userPass' => '',
-                            'userSalt' => '',
-                            'userName' => '',
-                            'userJoinDate' => '',
-                            'userGroup' => ''
+                            'userLogin' => Input::get('userLogin'),
+                            'userPass' => Input::get('userPass'),
+                            'userName' => Input::get('userName'),
+                            'userGroup' => 1,
+                            'userSalt' => $salt/*,
+                            'userJoinDate' => $today*/
                         ) 
                     );
                 }
