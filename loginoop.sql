@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 13, 2021 at 12:05 PM
+-- Generation Time: Sep 17, 2021 at 03:18 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -65,8 +65,8 @@ CREATE TABLE `users` (
   `userPass` varchar(64) COLLATE utf8_polish_ci DEFAULT NULL,
   `userName` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
   `userGroup` int(11) DEFAULT NULL,
-  `userSalt` varchar(32) COLLATE utf8_polish_ci DEFAULT NULL,
-  `userJoinDate` date DEFAULT NULL
+  `userSalt` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `userJoinDate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
@@ -74,11 +74,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `userLogin`, `userPass`, `userName`, `userGroup`, `userSalt`, `userJoinDate`) VALUES
-(1, 'Alex', 'password', 'Alex', 0, 'salt', '2021-09-10'),
-(2, 'Billy', 'password', 'Billy', 0, 'salt', '2021-09-10'),
+(1, 'Alex', 'password', 'Alex', 0, 'salt', '2021-09-10 00:00:00'),
+(2, 'Billy', 'password', 'Billy', 0, 'salt', '2021-09-10 00:00:00'),
 (3, 'Dale', 'newpass', 'Casy', 0, NULL, NULL),
 (4, 'Eric', 'ericpass', NULL, NULL, NULL, NULL),
-(5, 'Felix', 'somepass', 'Dale', 0, 'somesalt', '2021-09-13');
+(5, 'Felix', 'somepass', 'Dale', 0, 'somesalt', '2021-09-13 00:00:00');
 
 --
 -- Indexes for dumped tables
