@@ -143,7 +143,7 @@
 				}
 				$sql = "INSERT INTO {$table} (`".implode('`, `', $keys) ."`) VALUES ({$qmarks})";
 				//echo '<p>'.$sql.'</p>'; //TEST
-				if(!$this->query($sql, $fields)->error())
+				if(!$this->query($sql, $fields)->get_error())
 				{
 					return true;
 				}
@@ -165,7 +165,7 @@
 			$sql = "UPDATE {$table} SET {$set} WHERE userID={$id}";
 
 
-			if(!$this->query($sql, $fields)->error())
+			if(!$this->query($sql, $fields)->get_error())
 			{
 				return true;
 			}

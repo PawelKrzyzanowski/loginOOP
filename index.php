@@ -47,8 +47,8 @@
 	//if($userUpdate)	echo'<p>Update successful</p>';	else echo'<p>Update unsuccessful</p>';
 
 	//Example of Validation and Session (flash) usage
-	if(Session::has('success'))
+	if(Session::has('home'))
 	{
-		echo Session::flash('success');
+		echo "<p>".Session::flash('home')."</p>";
 	}
 ?>
