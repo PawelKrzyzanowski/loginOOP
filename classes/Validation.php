@@ -94,7 +94,7 @@
             return $this->_errorDescrs;
         }
 
-        public function get_hasPassed()
+        public function hasPassed()
         {
             return $this->_hasPassed;
         }

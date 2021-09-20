@@ -126,6 +126,12 @@
 		{
 			return $this->_resultsI;
 		}
+
+		public function get_FirstResultI()
+		{
+			return $this->_resultsI[0];
+			//or $this->get_resultsI()[0]; - however that one didn't work
+		}
 		
 		public function insert( $table, $fields = array() )
 		{

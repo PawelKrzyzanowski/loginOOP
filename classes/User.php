@@ -8,7 +8,7 @@
  */
     Class User
     {
-        private $_db;
+        private $_db, $_data;
         //we can pass $user value or not
         public function __construct( $user = NULL )
         {
@@ -21,6 +21,18 @@
                 throw new Exception("Wystąpił problem podczas tworzenia konta.");
         }
 
+        private function find($user = NULL)
+        {
+
+        }
+
+        public function login($userLogin = NULL, $userPass = NULL)
+        {
+            //$user = $this->find($userLogin)
+            //$users = DB::getInstance()->query("SELECT userLogin FROM users WHERE userLogin = ?", array($userLogin) );
+            $users = $this->_db->query("SELECT userLogin FROM users WHERE userLogin = ?", array($userLogin) );
+            
+        }
 
     }
 ?>

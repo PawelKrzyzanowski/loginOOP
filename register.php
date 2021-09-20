@@ -38,7 +38,7 @@
                 ) 
             );
 
-            if( $VOI->get_hasPassed() )
+            if( $VOI->hasPassed() )
             {
                 //echo'<p>Validation passed.</p>';
                 //echo'<p>Walidacja ukończona pomyślnie.</p>';
@@ -89,11 +89,11 @@
     </div>
     <div class="fld">
         <label for="userPass">Hasło</label>
-        <input type="text" name="userPass" id="userPass" value="" autocomplete="off">
+        <input type="password" name="userPass" id="userPass" value="" autocomplete="off">
     </div>
     <div class="fld">
         <label for="userPass2">Powtórzone hasło</label>
-        <input type="text" name="userPass2" id="userPass2" value="" autocomplete="off">
+        <input type="password" name="userPass2" id="userPass2" value="" autocomplete="off">
     </div>
     <div class="fld">
         <label for="userName">Imię i nazwisko</label>
