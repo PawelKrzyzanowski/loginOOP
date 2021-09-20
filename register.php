@@ -61,7 +61,8 @@
                     );
 
                     Session::flash('home', 'Zostałeś pomyślnie zarejestrowany i możesz się logować.');
-                    header("Location: index.php");
+                    Redirect::to("index.php");
+                    //Redirect::to(404);
                 }
                 catch(Exception $e) // User::create() may throw exception
                 {
