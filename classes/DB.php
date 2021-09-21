@@ -66,10 +66,10 @@
 				}
 				if($this->_pdoStmI->execute())
 				{
-					$this->_resultsI = $this->_pdoStmI->fetchAll(PDO::FETCH_OBJ);
+					$this->_resultsI = $this->_pdoStmI->fetchAll(PDO::FETCH_OBJ); // returns standard class object instance (parameters as columns)
 					$this->_count = $this->_pdoStmI->rowCount();
-					//echo'<p>_count = '.$this->_count.'</p>'; //diatest
-					//echo'<p>_result:</p>'; print_r($this->_resultsI); //diatest
+					//echo'<p>_count = '.$this->_count.'</p>'; //test
+					//echo'<p>_result:</p>'; print_r($this->_resultsI); //test
 				}
 				else
 				{

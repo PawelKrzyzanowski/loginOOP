@@ -28,10 +28,11 @@
                 Session::flash('success','Walidacja ukończona pomyślnie.');
                 Session::flash('success');
                 $user = new User();
-                $login = $user->login(Input::get('userLogin'), Input::get('userPass'));
+                $login = $user->login( Input::get('userLogin'), Input::get('userPass') );
                 if($login)
                 {
-                    echo"Jesteś zalogowany.";
+                    Session::flash('home','Jesteś zalogowany');
+                    Redirect::to("index.php");
                 }
                 else
                 {

@@ -11,6 +11,7 @@
 		- spl_autoload_register works like: You make connection (write: $db = new DB();)  --> PHP includes the classes/DB.php
 		- "=>" is the separator between property name and value and works like "=" for associative arrays.
 		- Cookies will be used if user chooses to be rembered.
+
 	*/
 
     $GLOBALS['config'] = array(

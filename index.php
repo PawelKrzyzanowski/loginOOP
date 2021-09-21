@@ -51,4 +51,5 @@
 	{
 		echo "<p>".Session::flash('home')."</p>";
 	}
+	echo "<p>Logged user ID: ".Session::get(Config::get('session/session_name')); //login test
 ?>
