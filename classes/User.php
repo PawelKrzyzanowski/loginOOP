@@ -12,12 +12,34 @@
  */
     Class User
     {
-        private $_dboi, $_userSCOI; 
+        private $_dboi, $_userSCOI, $_sessionName, $_isLoggedIn; 
         
-        //we can pass $user value or not
-        public function __construct( $user = NULL )
+        //you can pass $userID value or not
+        public function __construct( $userID = NULL ) //userID or userLogin can be passed
         {
+            //the construcotr set present user as default and save its ID as $_sessionName parameter
+            //the construtor set user of passed ID when argument exists 
             $this->_dboi = DB::getInstance();
+            $this->_sessionName = Config::get('session/session_name');
+            
+            if(!$userID) // executes when userID is NULL
+            {
+                if( Session::has($this->_sessionName) )     //Chceck if the session had been set by login() and the user is loggedIn
+                {
+                    if($this->find($this->_sessionName))    //saves the current user data in _userSCOI
+                    {
+                        $this->_isLoggedIn = true;          //set the login-flag
+                    }
+                    else
+                    {
+                        $this->_isLoggedIn = false;
+                    } 
+                }
+            }
+            else // executes when some argument is passed thru the constructor()
+            {
+                $this->find( $userID );                      // saves passed user data in _userSCOI
+            }
         }
         
         public function create($fields = array())
@@ -54,7 +76,8 @@
             {
                 if( $this->_userSCOI->userPass === Hash::generate( $inputPass, $this->_userSCOI->userSalt) )
                 {
-                    Session::put( Config::get('session/session_name'), $this->_userSCOI->userID); // $_SESSION['user'] = userID
+                    $this->_sessionName = Config::get('session/session_name');
+                    Session::put( $this->_sessionName , $this->_userSCOI->userID); // $_SESSION['user'] = userID
                     return true;
                 }
             }

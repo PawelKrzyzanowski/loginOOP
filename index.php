@@ -46,10 +46,18 @@
 	//$userUpdate = DB::getInstance()->update('users', 3, array('userName'=>'Casy', 'userPass'=>'newpass', 'userGroup'=>0));
 	//if($userUpdate)	echo'<p>Update successful</p>';	else echo'<p>Update unsuccessful</p>';
 
-	//Example of Validation and Session (flash) usage
+	//Example of Session Class usage
 	if(Session::has('home'))
 	{
 		echo "<p>".Session::flash('home')."</p>";
 	}
-	echo "<p>Logged user ID: ".Session::get(Config::get('session/session_name')); //login test
+	//Examlpe of User Class usage
+	echo "<p>Logged user ID: ".Session::get( Config::get('session/session_name') ); //login test
+	echo"<p>Current user ID: </p>";
+	$theUser = new User();
+	print_r($theUser);
+	echo"<p>Another user ID:</p>";
+	$someUser = new User(5);
+	print_r($someUser);
+
 ?>
