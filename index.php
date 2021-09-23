@@ -8,9 +8,10 @@
 	/* Example of DB class usage - quering 
 	"$db = new DB();" - before getInstance declaration: when __construct() was public */
 	//$users = DB::getInstance()->query("SELECT userName FROM users WHERE userName = ?", array('Alex') );
-	$users = DB::getInstance()->query("SELECT userLogin FROM users"); //can be 1 argument
+	//$users = DB::getInstance()->query("SELECT userLogin FROM users"); //can be 1 argument
 	//$users = DB::getInstance()->action("SELECT *", 'users', array('userName', '=', 'Alex') );
 	//$users = DB::getInstance()->selectAll('users', array('userName','=','Alex'));
+	/*
 	if($users->get_error())
 	{
 		echo'<p>Users query error occured.</p>';
@@ -38,6 +39,7 @@
 			echo'<p>The query returns 0 results.';
 		}
 	}
+	*/
 	//Example of DB usage - Inserting
 	//$userInsert = DB::getInstance()->insert('users', array('userLogin'=>'Felix', 'userPass'=>'somepass', 'userName'=>'Dale', 'userGroup'=>0, 'userSalt'=>'somesalt', 'userJoinDate'=>'2021-09-13') );
 	//$user = DB::getInstance()->insert('users', array('userLogin'=>'Dale'));
@@ -52,12 +54,21 @@
 		echo "<p>".Session::flash('home')."</p>";
 	}
 	//Examlpe of User Class usage
-	echo "<p>Logged user ID: ".Session::get( Config::get('session/session_name') ); //login test
-	echo"<p>Current user ID: </p>";
-	$theUser = new User();
-	print_r($theUser);
-	echo"<p>Another user ID:</p>";
-	$someUser = new User(5);
-	print_r($someUser);
+	//echo "<p>Logged user ID: ".Session::get( Config::get('session/session_name') )."</p>"; //login test
+	$user = new User();
+	//echo $someUser->get_userSCOI()->userLogin;
 
+	if($user->get_isLogged())
+	{
+		?>
+		<p>Witaj <a href="#"> <?php echo escape($user->get_userSCOI()->userLogin); ?> </a>! </p>
+		<ul>
+			<li><a href="logout.php">Wyloguj</a></li>
+		</ul>
+		<?php
+	}
+	else
+	{
+		echo'<p><a href="login.php">Zaloguj się</a> lub <a href="register.php">zarejestruj się</a>.</p>';
+	}
 ?>

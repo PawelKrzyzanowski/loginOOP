@@ -31,7 +31,7 @@
                 $login = $user->login( Input::get('userLogin'), Input::get('userPass') );
                 if($login)
                 {
-                    Session::flash('home','Jesteś zalogowany');
+                    Session::flash('home','Jesteś zalogowany.');
                     Redirect::to("index.php");
                 }
                 else
@@ -58,6 +58,10 @@
     <div class="fld">
         <label for="userPass">Hasło</label>
         <input type="password" name="userPass" id="userPass" value="" autocomplete="off">
+    </div>
+    <div class="fld">
+        <label for="remember"></label>
+        <input type="checkbox" name="remember" id="remember"> Zapamiętaj mnie.
     </div>
     <input type="submit" value="Sign in">
     <input type="hidden" name="token" id="token" value="<?php echo Token::generate(); ?>">

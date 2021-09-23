@@ -12,34 +12,38 @@
  */
     Class User
     {
-        private $_dboi, $_userSCOI, $_sessionName, $_isLoggedIn; 
+        private $_dboi, $_userSCOI, $_sessionName, $_isLogged; 
         
-        //you can pass $userID value or not
-        public function __construct( $userID = NULL ) //userID or userLogin can be passed
+        public function __construct( $userID = NULL ) //nth, userID or userLogin can be passed
         {
-            //the construcotr set present user as default and save its ID as $_sessionName parameter
-            //the construtor set user of passed ID when argument exists 
             $this->_dboi = DB::getInstance();
             $this->_sessionName = Config::get('session/session_name');
-            
-            if(!$userID) // executes when userID is NULL
+            if(!$userID) //Executes when pass no arguments
             {
-                if( Session::has($this->_sessionName) )     //Chceck if the session had been set by login() and the user is loggedIn
+                if( Session::has($this->_sessionName) ) //Chceck if the session exists
                 {
-                    if($this->find($this->_sessionName))    //saves the current user data in _userSCOI
+                    $userID = Session::get( $this->_sessionName );
+                    if( $this->find($userID) ) //saves the current user data in _userSCOI
                     {
-                        $this->_isLoggedIn = true;          //set the login-flag
+                        $this->_isLogged = true; //set the login-flag
                     }
                     else
                     {
-                        $this->_isLoggedIn = false;
+                        echo"Does nth.<br>";
+                        //$this->_isLogged = false;
                     } 
                 }
+                else
+                {
+                    //echo"Użytkownik nie jest zalogowany.";
+                }
             }
-            else // executes when some argument is passed thru the constructor()
+            else // executes when some argument is passed
             {
-                $this->find( $userID );                      // saves passed user data in _userSCOI
+            $this->find( $userID ); // saves that user data in _userSCOI
             }
+            $userID = Session::get($this->_sessionName);
+            echo $userID;
         }
         
         public function create($fields = array())
@@ -48,7 +52,7 @@
                 throw new Exception("Wystąpił problem podczas tworzenia konta.");
         }
 
-        private function find($value = NULL)
+        private function find($value=NULL)
         {
             if($value)
             {
@@ -63,7 +67,7 @@
             return false;
         }
 
-        public function get_user()
+        public function get_userSCOI()
         {
             return $this->_userSCOI;
         }
@@ -86,6 +90,16 @@
                 //Such a login doesn't exists in database
             }
             return false;
+        }
+
+        public function get_isLogged()
+        {
+            return $this->_isLogged;
+        }
+
+        public function logout()
+        {
+            Session::delete($this->_sessionName);
         }
 
     }
